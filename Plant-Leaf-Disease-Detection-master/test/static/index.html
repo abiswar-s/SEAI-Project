@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+  <style>
+    /* Reset default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    form {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px; /* Slightly wider for better layout */
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 1.5rem;
+    }
+
+    .file-info {
+      margin: 0 auto 1.5rem auto;
+      font-size: 0.9rem;
+      color: #666;
+      max-width: 100%;
+      word-wrap: break-word;
+      padding: 0.5rem;
+      background: #f9f9f9;
+      border-radius: 6px;
+      display: none; /* Hidden by default, shown via JavaScript */
+    }
+
+    input[type="file"] {
+      display: block;
+      margin: 0 auto 1.5rem auto;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 2px dashed #3498db;
+      border-radius: 8px;
+      width: 100%;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="file"]:hover {
+      border-color: #2980b9;
+    }
+
+    input[type="submit"] {
+      background-color: #3498db;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    input[type="submit"]:active {
+      transform: translateY(0);
+    }
+
+    /* Add a subtle animation for the form entrance */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    form {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* Optional: Add loading state (you can enhance with JavaScript) */
+    .loading {
+      display: none;
+      margin-top: 1rem;
+      font-style: italic;
+      color: #666;
+    }
+  </style>
+  <script>
+    // Simple script to display the selected file name
+    document.getElementById('fileUpload').addEventListener('change', function(e) {
+      const fileInfo = document.querySelector('.file-info');
+      if (e.target.files.length > 0) {
+        fileInfo.textContent = `Selected file: ${e.target.files[0].name}`;
+        fileInfo.style.display = 'block';
+      } else {
+        fileInfo.style.display = 'none';
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <form enctype="multipart/form-data" action="/api/file-upload" method="post">
+    <h1>Upload Your File</h1>
+    <div class="file-info"></div> <!-- Displays the selected file name -->
+    <input id="fileUpload" type="file" name="file" accept="image/*" />
+    <input type="submit" value="Upload" />
+    <div class="loading">Processing...</div> <!-- Placeholder for loading feedback -->
+  </form>
+</body>
+</html>
